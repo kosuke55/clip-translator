@@ -1,13 +1,23 @@
 # clip-translator
-
-In the apps available for window and mac, you can easily translate with ctr-c ctr-c. I would like to get something similar on linux.  
+In the DeepL apps available for window and mac, you can easily translate with ctrl-c ctrl-c. I would like to get something similar on linux.  
+![clip-translator](https://user-images.githubusercontent.com/39142679/85319755-f695eb80-b4fc-11ea-86a7-d5ab394b6818.gif)
 
 ## Install
+Please check your google chrome version.  
+```
+google-chrome --version
+Google Chrome 81.0.4044.113
+```
+Install the closest version of chromedriver_binary.
+```
+sudo pip install chromedriver_binary==81.0.4044.138.0
+```
 
+Install this package
 ```
 git clone https://github.com/kosuke55/clip-translator.git  
 cd clip-translator  
-pip install -e .  
+sudo pip install -e .  
 ```
 
 ## Setting
