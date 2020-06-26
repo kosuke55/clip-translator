@@ -37,6 +37,7 @@ class Translator(object):
                 print('Client connected', client)
                 _ = connection.recv(BUFFER_SIZE)
                 text = pyperclip.paste()
+                text = text.replace('.', '. ').replace('  ', ' ')
                 self.driver.get(
                     self.url.format(self.source, self.target, text))
             finally:
