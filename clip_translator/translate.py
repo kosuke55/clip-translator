@@ -2,6 +2,7 @@
 
 import argparse
 import socket
+import urllib
 
 import chromedriver_binary  # noqa
 import pyperclip
@@ -38,9 +39,9 @@ class Translator(object):
                 _ = connection.recv(BUFFER_SIZE)
                 text = pyperclip.paste()
                 text = text.replace('.', '. ').replace('  ', ' ')
-                text = text.replace('%', '%25')
+                encoded_text = urllib.quote(text)
                 self.driver.get(
-                    self.url.format(self.source, self.target, text))
+                    self.url.format(self.source, self.target, encoded_text))
             finally:
                 connection.close()
         s.close()
