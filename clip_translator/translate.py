@@ -38,6 +38,7 @@ class Translator(object):
                 _ = connection.recv(BUFFER_SIZE)
                 text = pyperclip.paste()
                 text = text.replace('.', '. ').replace('  ', ' ')
+                text = text.replace('%', '%25')
                 self.driver.get(
                     self.url.format(self.source, self.target, text))
             finally:
