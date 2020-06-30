@@ -27,7 +27,11 @@ Press the + button to add a shortcut as shown in the following image.
 <img src="https://user-images.githubusercontent.com/39142679/85297176-66947980-b4dd-11ea-8350-b298da51c8c2.png" width="500">  
 <img src="https://user-images.githubusercontent.com/39142679/85297169-64cab600-b4dd-11ea-82c7-e4749ce30069.png" width="500">  
 
+If you want to use the server's desktop shortcut, 
 
+```
+python create_desktop_shortcut.py
+```
 
 ## Run
 In the terminal  

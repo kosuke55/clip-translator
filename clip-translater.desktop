@@ -1,0 +1,9 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+Exec=clip_translate_s
+Name=clip-translater
+Comment=clip-translater
+Icon={}/icon.jpg
