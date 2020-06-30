@@ -7,17 +7,20 @@ subprocess.call(
      '-O',
      'icon.jpg'])
 
-file_name = "clip-translater.desktop"
-
-with open(file_name) as f:
+with open('clip-translater-base.desktop') as f:
     lines = f.read()
 
 lines = lines.replace(
     'Icon={}/icon.jpg',
     'Icon={}/icon.jpg'.format(os.getcwd()))
 
-with open(file_name, mode='w') as f:
+with open('clip-translater.desktop', mode='w') as f:
     f.write(lines)
+
+subprocess.call([
+    'chmod',
+    '755',
+    '{}/clip-translater.desktop'.format(os.getcwd())])
 
 subprocess.call([
     'ln',
