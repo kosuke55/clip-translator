@@ -4,3 +4,6 @@
 *.pyc
 \#*\#
 .\#*
+*.python-version
+clip-translater.desktop
+icon.jpg
