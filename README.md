@@ -40,7 +40,7 @@ In the terminal
 clip_translatate_s
 ```
 
-and then the browser starts up.  
+or click desktop shortcut and then the browser starts up.  
 
 After launching browser you can translate the text by pressing the shortcut key (ctrl-alt-c) after copying (ctrl-c).  
 
