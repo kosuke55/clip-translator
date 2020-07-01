@@ -62,7 +62,8 @@ class Translator(object):
                     words = text.split(' ')
                     splited_words = []
                     for word in words:
-                        if self.count_consecutive_uppper(word) < 2:
+                        if self.count_consecutive_uppper(word) < 2 \
+                                and not any(map(str.isdigit, word)):
                             splited_words.append(wordninja.split(word))
                         else:
                             splited_words.append([word])
