@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
 import argparse
-import sys
 import socket
+import sys
 import urllib
 
 import chromedriver_binary  # noqa
