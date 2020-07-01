@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 
 import argparse
+import sys
 import socket
 import urllib
 
 import chromedriver_binary  # noqa
 import pyperclip
+import timeout_decorator
 import wordninja
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -32,6 +34,9 @@ class Translator(object):
         options.add_experimental_option(
             'prefs', {'intl.accept_languages': '{}'.format(self.target)})
         self.driver = webdriver.Chrome(options=options)
+        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.socket.bind(('127.0.0.1', PORT))
+        self.driver_down = False
 
     def count_consecutive_uppper(self, word):
         count = 0
@@ -45,12 +50,25 @@ class Translator(object):
                 count = 0
         return count_max
 
+    @timeout_decorator.timeout(3)
+    def accept(self):
+        return self.socket.accept()
+
     def run(self):
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.bind(('127.0.0.1', PORT))
-        s.listen(1)
+        self.socket.listen(1)
         while True:
-            (connection, client) = s.accept()
+            if self.driver_down:
+                sys.exit()
+            try:
+                self.driver.get_window_position()
+            except Exception:
+                self.driver_down = True
+
+            try:
+                (connection, client) = self.accept()
+            except Exception:
+                continue
+
             try:
                 print('Client connected', client)
                 _ = connection.recv(BUFFER_SIZE)
@@ -86,7 +104,7 @@ class Translator(object):
                     self.url.format(self.source, self.target, encoded_text))
             finally:
                 connection.close()
-        s.close()
+        self.socket.close()
 
 
 def run_server():
