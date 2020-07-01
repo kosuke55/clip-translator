@@ -7,7 +7,7 @@ from setuptools import setup
 version = "0.0.1"
 
 setup_requires = []
-install_requires = ['pyperclip', 'selenium']
+install_requires = ['pyperclip', 'selenium', 'wordninja']
 
 setup(
     name="clip_translator",

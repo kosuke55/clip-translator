@@ -6,6 +6,7 @@ import urllib
 
 import chromedriver_binary  # noqa
 import pyperclip
+import wordninja
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
@@ -14,11 +15,12 @@ BUFFER_SIZE = 1024
 
 
 class Translator(object):
-    def __init__(self, source='en', target='ja', mode='deepl'):
+    def __init__(self, source='en', target='ja', mode='deepl', split=False):
         print('source: {}\ntarget: {}\nmode: {}'.format(source, target, mode))
         self.source = source
         self.target = target
         self.mode = mode
+        self.split = split
         if mode == 'deepl':
             self.url = 'https://www.deepl.com/translator#{}/{}/{}'
         elif mode == 'google':
@@ -27,6 +29,18 @@ class Translator(object):
         options.add_experimental_option(
             'prefs', {'intl.accept_languages': '{}'.format(self.target)})
         self.driver = webdriver.Chrome(options=options)
+
+    def count_consecutive_uppper(self, word):
+        count = 0
+        count_max = 0
+        for i, w in enumerate(word):
+            if str.isupper(w):
+                count += 1
+                if count > count_max:
+                    count_max = count
+            else:
+                count = 0
+        return count_max
 
     def run(self):
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -39,6 +53,27 @@ class Translator(object):
                 _ = connection.recv(BUFFER_SIZE)
                 text = pyperclip.paste()
                 text = text.replace('.', '. ').replace('  ', ' ')
+                if self.split:
+                    words = text.split(' ')
+                    splited_words = []
+                    for word in words:
+                        if self.count_consecutive_uppper(word) < 2:
+                            splited_words.append(wordninja.split(word))
+                        else:
+                            splited_words.append([word])
+                    text = ''
+                    for orig_word, word in zip(words, splited_words):
+                        if len(word) == 1:
+                            text += orig_word + ' '
+                        else:
+                            for i, w in enumerate(word):
+                                text += w + ' '
+                                if i == len(word) - 1:
+                                    if ',' in orig_word:
+                                        text += w + ', '
+                                    if '.' in orig_word:
+                                        text += w + '. '
+
                 encoded_text = urllib.quote(text)
                 self.driver.get(
                     self.url.format(self.source, self.target, encoded_text))
