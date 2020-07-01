@@ -15,12 +15,15 @@ BUFFER_SIZE = 1024
 
 
 class Translator(object):
-    def __init__(self, source='en', target='ja', mode='deepl', split=False):
-        print('source: {}\ntarget: {}\nmode: {}'.format(source, target, mode))
+    def __init__(self, source='en', target='ja', mode='deepl',
+                 split=0, remove_hyphen=0):
+        print('source: {}\ntarget: {}\nmode: {} \nsplit: {} \nremove_hyphen: {}'.format(
+            source, target, mode, split, remove_hyphen))
         self.source = source
         self.target = target
         self.mode = mode
         self.split = split
+        self.remove_hyphen = remove_hyphen
         if mode == 'deepl':
             self.url = 'https://www.deepl.com/translator#{}/{}/{}'
         elif mode == 'google':
@@ -53,6 +56,8 @@ class Translator(object):
                 _ = connection.recv(BUFFER_SIZE)
                 text = pyperclip.paste()
                 text = text.replace('.', '. ').replace('  ', ' ')
+                if self.remove_hyphen:
+                    text = text.replace('-', '')
                 if self.split:
                     words = text.split(' ')
                     splited_words = []
@@ -92,9 +97,16 @@ def run_server():
     parser.add_argument('--mode', '-m', type=str,
                         help='Translation site (deepl or google)',
                         default='deepl')
+    parser.add_argument('--split', '-sp', type=int,
+                        help='Use wordninja split',
+                        default=0)
+    parser.add_argument('--remove_hyphen', '-rh', type=int,
+                        help='Remove hypen',
+                        default=0)
     args = parser.parse_args()
 
-    translator = Translator(args.source, args.target, args.mode)
+    translator = Translator(args.source, args.target,
+                            args.mode, args.split, args.remove_hyphen)
     translator.run()
 
 
