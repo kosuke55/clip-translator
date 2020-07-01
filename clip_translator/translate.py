@@ -36,7 +36,7 @@ class Translator(object):
     def count_consecutive_uppper(self, word):
         count = 0
         count_max = 0
-        for i, w in enumerate(word):
+        for w in word:
             if str.isupper(w):
                 count += 1
                 if count > count_max:
