@@ -58,6 +58,8 @@ class Translator(object):
         self.socket.listen(1)
         while True:
             if self.driver_down:
+                self.driver.quit()
+                self.socket.close()
                 sys.exit()
             try:
                 self.driver.get_window_position()
@@ -104,6 +106,7 @@ class Translator(object):
                     self.url.format(self.source, self.target, encoded_text))
             finally:
                 connection.close()
+        self.drive.quit()
         self.socket.close()
 
 
