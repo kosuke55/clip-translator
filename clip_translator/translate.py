@@ -74,10 +74,10 @@ class Translator(object):
                         else:
                             for i, w in enumerate(word):
                                 if i == len(word) - 1:
-                                    if ',' in orig_word:
-                                        text += w + ', '
                                     if '.' in orig_word:
                                         text += w + '. '
+                                    elif ',' in orig_word:
+                                        text += w + ', '
                                 else:
                                     text += w + ' '
 
