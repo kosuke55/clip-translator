@@ -106,7 +106,7 @@ class Translator(object):
                     self.url.format(self.source, self.target, encoded_text))
             finally:
                 connection.close()
-        self.drive.quit()
+        self.driver.quit()
         self.socket.close()
 
 
