@@ -72,12 +72,13 @@ class Translator(object):
                             text += orig_word + ' '
                         else:
                             for i, w in enumerate(word):
-                                text += w + ' '
                                 if i == len(word) - 1:
                                     if ',' in orig_word:
                                         text += w + ', '
                                     if '.' in orig_word:
                                         text += w + '. '
+                                else:
+                                    text += w + ' '
 
                 encoded_text = urllib.quote(text)
                 self.driver.get(
