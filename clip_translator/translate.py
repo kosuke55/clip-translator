@@ -98,6 +98,8 @@ class Translator(object):
                                         text += w + '. '
                                     elif ',' in orig_word:
                                         text += w + ', '
+                                    else:
+                                        text += w + ' '
                                 else:
                                     text += w + ' '
 
