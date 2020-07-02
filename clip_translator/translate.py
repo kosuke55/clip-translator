@@ -104,6 +104,10 @@ class Translator(object):
                                     text += w + ' '
 
                 encoded_text = urllib.quote(text)
+                if self.mode == 'deepl':
+                    encoded_text = encoded_text.replace('%5C', '%5C%5C')
+                    encoded_text = encoded_text.replace('%7C', '%5C%7C')
+
                 self.driver.get(
                     self.url.format(self.source, self.target, encoded_text))
             finally:
