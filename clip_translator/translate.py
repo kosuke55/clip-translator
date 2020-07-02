@@ -38,6 +38,10 @@ class Translator(object):
         self.socket.bind(('127.0.0.1', PORT))
         self.driver_down = False
 
+    @timeout_decorator.timeout(3)
+    def accept(self):
+        return self.socket.accept()
+
     def count_consecutive_uppper(self, word):
         count = 0
         count_max = 0
@@ -50,9 +54,31 @@ class Translator(object):
                 count = 0
         return count_max
 
-    @timeout_decorator.timeout(3)
-    def accept(self):
-        return self.socket.accept()
+    def split_words(self, text):
+        words = text.split(' ')
+        splited_words = []
+        for word in words:
+            if self.count_consecutive_uppper(word) < 2 \
+                    and not any(map(str.isdigit, word)):
+                splited_words.append(wordninja.split(word))
+            else:
+                splited_words.append([word])
+        text = ''
+        for orig_word, word in zip(words, splited_words):
+            if len(word) == 1:
+                text += orig_word + ' '
+            else:
+                for i, w in enumerate(word):
+                    if i == len(word) - 1:
+                        if '.' in orig_word:
+                            text += w + '. '
+                        elif ',' in orig_word:
+                            text += w + ', '
+                        else:
+                            text += w + ' '
+                    else:
+                        text += w + ' '
+        return text
 
     def run(self):
         self.socket.listen(1)
@@ -79,29 +105,7 @@ class Translator(object):
                 if self.remove_hyphen:
                     text = text.replace('-', '')
                 if self.split:
-                    words = text.split(' ')
-                    splited_words = []
-                    for word in words:
-                        if self.count_consecutive_uppper(word) < 2 \
-                                and not any(map(str.isdigit, word)):
-                            splited_words.append(wordninja.split(word))
-                        else:
-                            splited_words.append([word])
-                    text = ''
-                    for orig_word, word in zip(words, splited_words):
-                        if len(word) == 1:
-                            text += orig_word + ' '
-                        else:
-                            for i, w in enumerate(word):
-                                if i == len(word) - 1:
-                                    if '.' in orig_word:
-                                        text += w + '. '
-                                    elif ',' in orig_word:
-                                        text += w + ', '
-                                    else:
-                                        text += w + ' '
-                                else:
-                                    text += w + ' '
+                    text = self.split_words(text)
 
                 encoded_text = urllib.quote(text)
                 if self.mode == 'deepl':
