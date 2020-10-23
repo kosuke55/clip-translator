@@ -18,7 +18,7 @@ BUFFER_SIZE = 1024
 
 class Translator(object):
     def __init__(self, source='en', target='ja', mode='deepl',
-                 split=0, remove_hyphen=0):
+                 split=0, remove_hyphen=0, remove_newline=0):
         print('source: {}\ntarget: {}\nmode: {} \nsplit: {} \nremove_hyphen: {}'.format(
             source, target, mode, split, remove_hyphen))
         self.source = source
@@ -26,6 +26,7 @@ class Translator(object):
         self.mode = mode
         self.split = split
         self.remove_hyphen = remove_hyphen
+        self.remove_newline = remove_newline
         if mode == 'deepl':
             self.url = 'https://www.deepl.com/translator#{}/{}/{}'
         elif mode == 'google':
@@ -104,6 +105,8 @@ class Translator(object):
                 text = text.replace('.', '. ').replace('  ', ' ')
                 if self.remove_hyphen:
                     text = text.replace('-', '')
+                if self.remove_newline:
+                    text = text.replace('\n', ' ')
                 if self.split:
                     text = self.split_words(text)
 
@@ -133,13 +136,17 @@ def run_server():
     parser.add_argument('--split', '-sp', type=int,
                         help='Use wordninja split',
                         default=0)
-    parser.add_argument('--remove_hyphen', '-rh', type=int,
+    parser.add_argument('--remove-hyphen', '-rh', type=int,
                         help='Remove hypen',
+                        default=0)
+    parser.add_argument('--remove-newline', '-rn', type=int,
+                        help='Remove newline',
                         default=0)
     args = parser.parse_args()
 
     translator = Translator(args.source, args.target,
-                            args.mode, args.split, args.remove_hyphen)
+                            args.mode, args.split,
+                            args.remove_hyphen, args.remove_newline)
     translator.run()
 
 
