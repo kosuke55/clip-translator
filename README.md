@@ -48,6 +48,8 @@ After launching browser you can translate the text by pressing the shortcut key 
 ```
 clip_translate_s -h
 usage: clip_translate_s [-h] [--source SOURCE] [--target TARGET] [--mode MODE]
+                        [--split SPLIT] [--remove-hyphen REMOVE_HYPHEN]
+                        [--remove-newline REMOVE_NEWLINE]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -56,6 +58,12 @@ optional arguments:
   --target TARGET, -t TARGET
                         target language (default: ja)
   --mode MODE, -m MODE  Translation site (deepl or google) (default: deepl)
+  --split SPLIT, -sp SPLIT
+                        Use wordninja split (default: 0)
+  --remove-hyphen REMOVE_HYPHEN, -rh REMOVE_HYPHEN
+                        Remove hypen (default: 0)
+  --remove-newline REMOVE_NEWLINE, -rn REMOVE_NEWLINE
+                        Remove newline (default: 0)
 ```
 
 To use google translate instead of deepl, run like
