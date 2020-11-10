@@ -104,7 +104,7 @@ class Translator(object):
                 text = pyperclip.paste()
                 text = text.replace('.', '. ').replace('  ', ' ')
                 if self.remove_hyphen:
-                    text = text.replace('-', '')
+                    text = text.replace('-\n', '')
                 if self.remove_newline:
                     text = text.replace('\n', ' ')
                 if self.split:
