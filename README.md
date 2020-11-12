@@ -75,7 +75,7 @@ To use google translate instead of deepl, run like
 clip_translatate_s -m google
 ```
 
-## trouble shooting
+## Trouble Shooting
 If you can't translate with the shortcut.
 If it was started with the command `clip_translate_s`, the following error is displayed.
 ```
