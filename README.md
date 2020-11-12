@@ -10,14 +10,18 @@ Google Chrome 81.0.4044.113
 ```
 Install the closest version of chromedriver_binary.
 ```
-sudo pip install chromedriver_binary==81.0.4044.138.0
+pip install chromedriver_binary==81.0.4044.138.0
+```
+To check the available version
+```
+pip install chromedriver_binary==
 ```
 
 Install this package
 ```
 git clone https://github.com/kosuke55/clip-translator.git  
 cd clip-translator  
-sudo pip install -e .  
+pip install -e .  
 ```
 
 ## Setting
@@ -70,11 +74,3 @@ To use google translate instead of deepl, run like
 ```
 clip_translatate_s -m google
 ```
-
-
-
-
-
-
-
-
