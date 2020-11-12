@@ -84,5 +84,5 @@ socket.error: [Errno 98] Address already in use
 This is not visible when launched from the desktop icon.
 You can kill the process on the port being used by running
 ```
-python kill_process.py
+kill_clip_trasnlate_s
 ```
