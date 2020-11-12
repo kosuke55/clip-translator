@@ -29,7 +29,8 @@ setup(
     entry_points={
         'console_scripts':
         ['clip_translate_c=clip_translator.translate:run_client',
-         'clip_translate_s=clip_translator.translate:run_server']},
+         'clip_translate_s=clip_translator.translate:run_server',
+         'kill_clip_trasnlate_s=clip_translator.translate:kill_server']},
     setup_requires=setup_requires,
     install_requires=install_requires,
 )

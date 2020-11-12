@@ -2,6 +2,7 @@
 
 import argparse
 import socket
+import subprocess
 import sys
 import urllib
 
@@ -19,8 +20,13 @@ BUFFER_SIZE = 1024
 class Translator(object):
     def __init__(self, source='en', target='ja', mode='deepl',
                  split=0, remove_hyphen=0, remove_newline=0):
-        print('source: {}\ntarget: {}\nmode: {} \nsplit: {} \nremove_hyphen: {}'.format(
-            source, target, mode, split, remove_hyphen))
+        print(
+            'source: {}\ntarget: {}\nmode: {} \nsplit: {} \nremove_hyphen: {}'.format(
+                source,
+                target,
+                mode,
+                split,
+                remove_hyphen))
         self.source = source
         self.target = target
         self.mode = mode
@@ -155,6 +161,23 @@ def run_client():
     s.connect(('127.0.0.1', PORT))
     s.send(''.encode())
     s.close()
+
+
+def kill_server():
+    p = subprocess.Popen('lsof -i :{}'.format(PORT).split(),
+                         stdout=subprocess.PIPE,
+                         stderr=subprocess.STDOUT)
+
+    pid = False
+    for line in iter(p.stdout.readline, b''):
+        if 'clip_t' in line:
+            pid = line.split(' ')[1]
+            print(pid)
+
+    if pid:
+        cmd = 'kill {}'.format(pid)
+        print(cmd)
+        subprocess.call(cmd.split(' '))
 
 
 if __name__ == '__main__':
