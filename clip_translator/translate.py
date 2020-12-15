@@ -149,10 +149,10 @@ def run_server():
                         default=0)
     parser.add_argument('--remove-hyphen', '-rh', type=int,
                         help='Remove hypen',
-                        default=0)
+                        default=1)
     parser.add_argument('--remove-newline', '-rn', type=int,
                         help='Remove newline',
-                        default=0)
+                        default=1)
     args = parser.parse_args()
 
     translator = Translator(args.source, args.target,
