@@ -4,7 +4,12 @@ import argparse
 import socket
 import subprocess
 import sys
-import urllib
+try:
+    # Python 2
+    from urllib import quote
+except ImportError:
+    # Python 3
+    from urllib.parse import quote
 
 import chromedriver_binary  # noqa
 import pyperclip
@@ -116,7 +121,7 @@ class Translator(object):
                 if self.split:
                     text = self.split_words(text)
 
-                encoded_text = urllib.quote(text)
+                encoded_text = quote(text)
                 if self.mode == 'deepl':
                     encoded_text = encoded_text.replace('%5C', '%5C%5C')
                     encoded_text = encoded_text.replace('%7C', '%5C%7C')
