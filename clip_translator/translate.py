@@ -114,8 +114,10 @@ class Translator(object):
                 _ = connection.recv(BUFFER_SIZE)
                 text = pyperclip.paste()
                 text = text.replace('.', '. ').replace('  ', ' ')
-                if self.remove_hyphen:
+                if self.remove_hyphen == 1:
                     text = text.replace('-\n', '')
+                if self.remove_hyphen == 2:
+                    text = text.replace('-', '')
                 if self.remove_newline:
                     text = text.replace('\n', ' ')
                 if self.split:
@@ -148,8 +150,10 @@ def run_server():
                         help='Use wordninja split',
                         default=0)
     parser.add_argument('--remove-hyphen', '-rh', type=int,
-                        help='Remove hypen',
-                        default=1)
+                        help='Remove hypen.'
+                        '1: Only hyphens at the end of sentences'
+                        '2: All hyphens',
+                        default=2)
     parser.add_argument('--remove-newline', '-rn', type=int,
                         help='Remove newline',
                         default=1)
