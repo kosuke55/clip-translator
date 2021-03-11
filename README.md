@@ -45,6 +45,7 @@ clip_translatate_s
 ```
 
 or click desktop shortcut and then the browser starts up.  
+If you cannot launch with the shortcut, right-click the icon and select "Allow Launch".
 
 After launching browser you can translate the text by pressing the shortcut key (ctrl-alt-c) after copying (ctrl-c).  
 
