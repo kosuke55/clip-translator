@@ -25,6 +25,12 @@ pip install -e .
 ```
 
 ## Setting
+Set keyboard shortcut by running script.  
+```
+python set_keyboard_shortcut.py 'clip-translate' 'clip_translate_c' '<Primary><Alt>c'
+```
+
+(or manually...)  
 Search for "keyboard" and start it up, then select "shortcuts" and "custom shortcuts" field.  
 <img src="https://user-images.githubusercontent.com/39142679/85297416-aeb39c00-b4dd-11ea-8cce-74452bb11eb9.png" width="500">  
 Press the + button to add a shortcut as shown in the following image.  
