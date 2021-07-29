@@ -44,18 +44,21 @@ python create_desktop_shortcut.py
 ```
 
 ## Run
-In the terminal  
+
+click desktop shortcut and then the browser starts up.  
+<img src="https://camo.qiitausercontent.com/794807e27e694f32f3b6439f6146431592d02b47/68747470733a2f2f71696974612d696d6167652d73746f72652e73332e61702d6e6f727468656173742d312e616d617a6f6e6177732e636f6d2f302f3331353233322f31333132336634652d306361312d663035362d663839312d6336653337336436363266662e706e67" width="100">  
+or in the terminal  
 
 ```
 clip_translate_s
 ```
 
-or click desktop shortcut and then the browser starts up.  
 If you cannot launch with the shortcut, right-click the icon and select "Allow Launch".
 
 After launching browser you can translate the text by pressing the shortcut key (ctrl-alt-c) after copying (ctrl-c).  
 
 ### Options
+
 ```
 clip_translate_s -h
 usage: clip_translate_s [-h] [--source SOURCE] [--target TARGET] [--mode MODE]
