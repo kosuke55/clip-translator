@@ -47,7 +47,7 @@ python create_desktop_shortcut.py
 In the terminal  
 
 ```
-clip_translatate_s
+clip_translate_s
 ```
 
 or click desktop shortcut and then the browser starts up.  
