@@ -79,7 +79,7 @@ optional arguments:
 
 To use google translate instead of deepl, run like
 ```
-clip_translatate_s -m google
+clip_translate_s -m google
 ```
 
 ## Trouble Shooting
