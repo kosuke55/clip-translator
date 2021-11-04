@@ -86,7 +86,7 @@ clip_translate_s -m google
 ```
 
 ## Trouble Shooting
-If you can't translate with the shortcut.
+- Can't translate with the shortcut.
 If it was started with the command `clip_translate_s`, the following error is displayed.
 ```
 socket.error: [Errno 98] Address already in use
@@ -95,4 +95,43 @@ This is not visible when launched from the desktop icon.
 You can kill the process on the port being used by running
 ```
 kill_clip_trasnlate_s
+```
+
+- Can't launch an application from its icon.
+Launch from command line and check the error.
+```
+~
+$ clip_translate_s
+source: en
+target: ja
+mode: deepl
+split: 0
+remove_hyphen: 2
+Traceback (most recent call last):
+  File "/home/kosuke55/.local/bin/clip_translate_s", line 33, in <module>
+    sys.exit(load_entry_point('clip-translator', 'console_scripts', 'clip_translate_s')())
+  File "/home/kosuke55/clip-translator/clip_translator/translate.py", line 162, in run_server
+    translator = Translator(args.source, args.target,
+  File "/home/kosuke55/clip-translator/clip_translator/translate.py", line 48, in __init__
+    self.driver = webdriver.Chrome(options=options)
+  File "/usr/local/lib/python3.8/dist-packages/selenium/webdriver/chrome/webdriver.py", line 76, in __init__
+    RemoteWebDriver.__init__(
+  File "/usr/local/lib/python3.8/dist-packages/selenium/webdriver/remote/webdriver.py", line 157, in __init__
+    self.start_session(capabilities, browser_profile)
+  File "/usr/local/lib/python3.8/dist-packages/selenium/webdriver/remote/webdriver.py", line 252, in start_session
+    response = self.execute(Command.NEW_SESSION, parameters)
+  File "/usr/local/lib/python3.8/dist-packages/selenium/webdriver/remote/webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "/usr/local/lib/python3.8/dist-packages/selenium/webdriver/remote/errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.SessionNotCreatedException: Message: session not created: This version of ChromeDriver only supports Chrome version 92
+Current browser version is 94.0.4606.71 with binary path /usr/bin/google-chrome
+```
+
+If the version of google chrome is not correct, install chromedriver_binaray again.
+```
+# check version list
+$ pip install chromedriver_binary==
+# Install the closest version of chromedriver_binary
+$ pip install chromedriver_binary==94.0.4606.61.0
 ```
